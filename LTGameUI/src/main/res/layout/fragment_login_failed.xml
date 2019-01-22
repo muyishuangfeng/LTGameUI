@@ -59,8 +59,8 @@
 
     <com.gnetop.ltgameui.ui.ProgressView
         android:id="@+id/pgb_loading"
-        android:layout_width="@dimen/dp_40"
-        android:layout_height="@dimen/dp_40"
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="@dimen/dp_60"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/dp_13"
         android:visibility="gone"
