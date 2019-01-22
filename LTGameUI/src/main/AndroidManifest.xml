@@ -8,7 +8,6 @@
         <activity
             android:name=".widget.activity.LoginActivity"
             android:theme="@style/CustomTheme_Dialog" />
-        <activity android:name=".widget.activity.FAQActivity" />
     </application>
 
 </manifest>
