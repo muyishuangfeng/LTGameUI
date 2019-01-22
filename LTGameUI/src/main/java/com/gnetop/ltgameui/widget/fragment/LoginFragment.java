@@ -11,7 +11,9 @@ import android.widget.LinearLayout;
 import com.gnetop.ltgamecommon.impl.OnLoginSuccessListener;
 import com.gnetop.ltgamecommon.model.BaseEntry;
 import com.gnetop.ltgamecommon.model.BundleData;
+import com.gnetop.ltgamecommon.model.Event;
 import com.gnetop.ltgamecommon.model.ResultData;
+import com.gnetop.ltgamecommon.util.EventUtils;
 import com.gnetop.ltgamefacebook.FaceBookLoginManager;
 import com.gnetop.ltgamegoogle.GoogleLoginManager;
 import com.gnetop.ltgameui.R;
@@ -26,6 +28,8 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     String baseURL;
     String LTAppID;
     String LTAppKey;
+    public static final int LOGIN_LOADING=0X01;
+    public static final int LOGIN_ERROR=0X02;
 
     public static LoginFragment newInstance(BundleData data) {
         Bundle args = new Bundle();
@@ -74,9 +78,11 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     public void onClick(View view) {
         int resID = view.getId();
         if (resID == R.id.lyt_login_facebook) {//facebook
+            EventUtils.sendEvent(new Event(LOGIN_LOADING));
             FaceBookLoginManager.getInstance().faceBookLogin(mActivity);
         } else if (resID == R.id.lyt_login_google) {//google
             if (!TextUtils.isEmpty(googleClientID)) {
+                EventUtils.sendEvent(new Event(LOGIN_LOADING));
                 GoogleLoginManager.googleLogin(mActivity,
                         googleClientID);
             }
@@ -103,6 +109,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
                         public void onFailed(Throwable ex) {
                             Log.e("google==", "onFailed" + ex.getMessage());
                             loginFailed();
+                            EventUtils.sendEvent(new Event(LOGIN_ERROR));
                             GoogleLoginManager.stopConnection(mActivity);
                         }
 
@@ -115,6 +122,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
                         public void onParameterError(String result) {
                             Log.e("google==", "nParameterError" + result);
                             loginFailed();
+                            EventUtils.sendEvent(new Event(LOGIN_ERROR));
                             GoogleLoginManager.stopConnection(mActivity);
                         }
 
@@ -122,6 +130,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
                         public void onError(String error) {
                             Log.e("google==", "onError" + error);
                             loginFailed();
+                            EventUtils.sendEvent(new Event(LOGIN_ERROR));
                             GoogleLoginManager.stopConnection(mActivity);
                         }
                     });
@@ -192,6 +201,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
                         public void onFailed(Throwable ex) {
                             Log.e("facebook", ex.getMessage());
                             loginFailed();
+                            EventUtils.sendEvent(new Event(LOGIN_ERROR));
                         }
 
                         @Override
@@ -203,12 +213,14 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
                         public void onParameterError(String result) {
                             Log.e("facebook", result);
                             loginFailed();
+                            EventUtils.sendEvent(new Event(LOGIN_ERROR));
                         }
 
                         @Override
                         public void onError(String error) {
                             Log.e("facebook", error);
                             loginFailed();
+                            EventUtils.sendEvent(new Event(LOGIN_ERROR));
                         }
                     });
         }

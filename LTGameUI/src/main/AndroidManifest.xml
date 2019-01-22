@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.gnetop.ltgameui" >
+    package="com.gnetop.ltgameui">
 
     <application
         android:allowBackup="true"
@@ -8,6 +9,6 @@
             android:name=".widget.activity.LoginActivity"
             android:theme="@style/CustomTheme_Dialog" />
         <activity android:name=".widget.activity.FAQActivity" />
-
     </application>
+
 </manifest>
