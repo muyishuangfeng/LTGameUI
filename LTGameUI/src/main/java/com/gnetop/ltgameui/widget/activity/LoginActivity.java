@@ -37,9 +37,6 @@ public class LoginActivity extends BaseAppActivity {
         data.setGoogleClientID(googleClientID);
         data.setLTAppID(LTAppID);
         data.setLTAppKey(LTAppKey);
-        Log.e("LoginActivity", mAgreementUrl + "====" + mPrivacyUrl + "====="
-                + data.getAgreementUrl() + "===" + data.getPrivacyUrl() + "===" + googleClientID
-                + "===" + baseURL + "===" + LTAppID + "===" + LTAppKey);
         if (!TextUtils.isEmpty(mAgreementUrl) &&
                 !TextUtils.isEmpty(mPrivacyUrl)) {
             if (findFragment(LoginFragment.class) == null) {

@@ -93,18 +93,10 @@ public class AgreementFragment extends BaseFragment implements View.OnClickListe
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (buttonView.getId() == R.id.ckb_agreement) {
-            if (isChecked) {
-                isAgreement = true;
-            } else {
-                isAgreement = false;
-            }
+            isAgreement = isChecked;
 
         } else if (buttonView.getId() == R.id.ckb_privacy) {
-            if (isChecked) {
-                isPrivacy = true;
-            } else {
-                isPrivacy = false;
-            }
+            isPrivacy = isChecked;
         }
         if (isPrivacy && isAgreement) {
             mBtnInto.setBackgroundResource(R.drawable.btn_blue_corner);
@@ -141,16 +133,16 @@ public class AgreementFragment extends BaseFragment implements View.OnClickListe
                 }
             }
         };
-        style.setSpan(clickableSpan, 7, 11, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        style2.setSpan(clickableSpan2, 7, 11, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        style.setSpan(clickableSpan, 11, 13, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        style2.setSpan(clickableSpan2, 13, 15, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         mTxtPrivacy.setText(style2);
         mTxtAgreement.setText(style);
 
         //设置部分文字颜色
         ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(getResources().getColor(R.color.colorBlue));
         ForegroundColorSpan foregroundColorSpan2 = new ForegroundColorSpan(getResources().getColor(R.color.colorBlue));
-        style.setSpan(foregroundColorSpan, 6, 12, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        style2.setSpan(foregroundColorSpan2, 6, 12, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        style.setSpan(foregroundColorSpan, 11, 13, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        style2.setSpan(foregroundColorSpan2, 13, 15, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         //配置给TextView
         mTxtPrivacy.setMovementMethod(LinkMovementMethod.getInstance());

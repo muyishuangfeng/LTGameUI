@@ -11,6 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/dp_22"
+        android:layout_marginStart="@dimen/dp_20"
+        android:layout_marginEnd="@dimen/dp_20"
         android:gravity="center"
         android:text="@string/text_user_privacy"
         android:textStyle="bold"
@@ -21,9 +23,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:gravity="center_horizontal"
         android:layout_marginBottom="@dimen/dp_14"
         android:layout_marginTop="@dimen/dp_17"
-        android:gravity="center"
         android:orientation="horizontal">
 
         <android.support.v7.widget.AppCompatCheckBox
@@ -39,8 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/dp_11"
-            android:gravity="center"
+            android:layout_marginStart="@dimen/dp_11"
             android:text="@string/text_agreement"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/sp_10" />
@@ -50,8 +51,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:gravity="center_horizontal"
         android:layout_marginBottom="@dimen/dp_19"
-        android:gravity="center"
         android:orientation="horizontal">
 
         <android.support.v7.widget.AppCompatCheckBox
@@ -59,6 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginStart="@dimen/dp_20"
             android:button="@drawable/bg_checkbox_one"
             android:gravity="center" />
 
@@ -67,8 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/dp_11"
-            android:gravity="center"
+            android:layout_marginStart="@dimen/dp_11"
             android:text="@string/text_privacy"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/sp_10" />
