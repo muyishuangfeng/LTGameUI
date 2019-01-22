@@ -86,7 +86,10 @@ public class AgreementFragment extends BaseFragment implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btn_into_game) {
-            EventUtils.sendEvent(new Event(BaseResult.MSG_RESULT_JUMP_INTO_GAME));
+            if (isPrivacy && isAgreement) {
+                EventUtils.sendEvent(new Event(BaseResult.MSG_RESULT_JUMP_INTO_GAME));
+                getProxyActivity().finish();
+            }
         }
     }
 
