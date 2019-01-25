@@ -27,9 +27,9 @@ dependencies {
     //fragment
     implementation 'me.yokeyword:fragmentation:1.3.6'
     implementation 'me.yokeyword:fragmentation-swipeback:1.3.6'
-    implementation 'com.github.muyishuangfeng:LTGameCommon:1.0.6'
+    implementation 'com.github.muyishuangfeng:LTGameCommon:1.0.7'
     implementation 'com.github.muyishuangfeng:LTGameFaceBook:1.0.1'
-    implementation 'com.github.muyishuangfeng:LTGameGoogle:1.0.2'
+    implementation 'com.github.muyishuangfeng:LTGameGoogle:1.0.4'
 }
 // 指定编码
 tasks.withType(JavaCompile) {

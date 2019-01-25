@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.gnetop.ltgamecommon.base.BaseResult;
 import com.gnetop.ltgamecommon.impl.OnLoginSuccessListener;
 import com.gnetop.ltgamecommon.model.BaseEntry;
 import com.gnetop.ltgamecommon.model.BundleData;
@@ -15,7 +16,7 @@ import com.gnetop.ltgamecommon.model.Event;
 import com.gnetop.ltgamecommon.model.ResultData;
 import com.gnetop.ltgamecommon.util.EventUtils;
 import com.gnetop.ltgamefacebook.FaceBookLoginManager;
-import com.gnetop.ltgamegoogle.GoogleLoginManager;
+import com.gnetop.ltgamegoogle.GooglePlayLoginManager;
 import com.gnetop.ltgameui.R;
 import com.gnetop.ltgameui.base.BaseFragment;
 
@@ -28,6 +29,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     String baseURL;
     String LTAppID;
     String LTAppKey;
+    private static final int REQUEST_CODE = 0X01;
 
     public static LoginFragment newInstance(BundleData data) {
         Bundle args = new Bundle();
@@ -79,8 +81,8 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
             FaceBookLoginManager.getInstance().faceBookLogin(mActivity);
         } else if (resID == R.id.lyt_login_google) {//google
             if (!TextUtils.isEmpty(googleClientID)) {
-                GoogleLoginManager.googleLogin(mActivity,
-                        googleClientID);
+                GooglePlayLoginManager.initGoogle(mActivity,
+                        googleClientID, REQUEST_CODE);
             }
         }
     }
@@ -92,20 +94,27 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         if (!TextUtils.isEmpty(baseURL) &&
                 !TextUtils.isEmpty(LTAppID) &&
                 !TextUtils.isEmpty(LTAppKey)) {
-            GoogleLoginManager.onGoogleResult(requestCode, data, mActivity,
+            GooglePlayLoginManager.onActivityResult(requestCode, data, REQUEST_CODE, mActivity,
                     baseURL, LTAppID, LTAppKey,
                     new OnLoginSuccessListener() {
                         @Override
                         public void onSuccess(BaseEntry<ResultData> result) {
-                            Log.e("google==", "onSuccess" + result.getResult());
-                            toAgreementUrl();
+                            if (result != null) {
+                                if (result.getCode() == 200) {
+                                    toAgreementUrl();
+                                }
+                                if (result.getData().getApi_token() != null &&
+                                        result.getData().getLt_uid() != null) {
+                                    EventUtils.sendEvent(new Event<>(BaseResult.MSG_RESULT_GOOGLE_SUCCESS,
+                                            result));
+                                }
+                            }
                         }
 
                         @Override
                         public void onFailed(Throwable ex) {
                             Log.e("google==", "onFailed" + ex.getMessage());
                             loginFailed();
-                            GoogleLoginManager.stopConnection(mActivity);
                         }
 
                         @Override
@@ -117,14 +126,12 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
                         public void onParameterError(String result) {
                             Log.e("google==", "nParameterError" + result);
                             loginFailed();
-                            GoogleLoginManager.stopConnection(mActivity);
                         }
 
                         @Override
                         public void onError(String error) {
                             Log.e("google==", "onError" + error);
                             loginFailed();
-                            GoogleLoginManager.stopConnection(mActivity);
                         }
                     });
         }
@@ -134,7 +141,6 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        GoogleLoginManager.stopConnection(mActivity);
     }
 
     /**
@@ -186,8 +192,16 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
                     new OnLoginSuccessListener() {
                         @Override
                         public void onSuccess(BaseEntry<ResultData> result) {
-                            Log.e("facebook", result.getResult());
-                            toAgreementUrl();
+                            if (result != null) {
+                                if (result.getCode() == 200) {
+                                    toAgreementUrl();
+                                }
+                                if (result.getData().getApi_token() != null &&
+                                        result.getData().getLt_uid() != null) {
+                                    EventUtils.sendEvent(new Event<>(BaseResult.MSG_RESULT_FACEBOOK_SUCCESS,
+                                            result));
+                                }
+                            }
                         }
 
                         @Override
